@@ -101,22 +101,5 @@ function fetchMatches($timeData, $mainReferer, $userAgent) {
     return $dailyMatches;
 }
 
-    $mainReferer = "https://socolivev.co/";
-    $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? "Default-User-Agent";
-
-    $currentDate = date('Ymd');
-    $nextDay = date('Ymd', strtotime('+1 day'));
-    $yesterday = date('Ymd', strtotime('-1 day'));
-
-    $matchTimes = [$yesterday, $currentDate, $nextDay];
-
-    $allMatches = [];
-    foreach ($matchTimes as $time) {
-        $allMatches = array_merge($allMatches, fetchMatches($time, $mainReferer, $userAgent));
-    }
-
-    header('Content-Type: application/json');
-    echo json_encode($allMatches, JSON_PRETTY_PRINT);
-    exit;
-
-?>
+header('Content-Type: application/json');
+echo json_encode(fetchMatches('2024-12-18', 'https://socolivev.co/', 'Mozilla/5.0'), JSON_PRETTY_PRINT);
